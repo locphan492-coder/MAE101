@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Đề Thi AI & Ma Trận Nghịch Đảo</title>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']]
+      }
+    };
+  </script>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#f4f6f9;
+      margin:0;
+      padding:20px;
+      line-height:1.6;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+    }
+
+    h1{
+      text-align:center;
+      color:#0b4f8a;
+    }
+
+    h2{
+      color:#1d5fa7;
+      margin-top:40px;
+    }
+
+    .question{
+      background:white;
+      padding:20px;
+      margin:20px 0;
+      border-radius:12px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .question p{
+      font-weight:bold;
+    }
+
+    .option{
+      display:block;
+      margin:10px 0;
+      padding:12px;
+      border:2px solid #ddd;
+      border-radius:10px;
+      cursor:pointer;
+      transition:0.3s;
+      background:#fafafa;
+    }
+
+    .option:hover{
+      background:#eef5ff;
+    }
+
+    .correct{
+      background:#d4edda !important;
+      border-color:#28a745 !important;
+      color:#155724;
+    }
+
+    .wrong{
+      background:#f8d7da !important;
+      border-color:#dc3545 !important;
+      color:#721c24;
+    }
+
+    .explanation{
+      margin-top:15px;
+      padding:15px;
+      background:#fff8dc;
+      border-left:5px solid orange;
+      border-radius:8px;
+      display:none;
+    }
+
+    .tip{
+      margin-top:10px;
+      padding:10px;
+      background:#e8f4ff;
+      border-left:5px solid #2196f3;
+      border-radius:8px;
+    }
+
+    .score-box{
+      position:sticky;
+      top:10px;
+      background:#0b4f8a;
+      color:white;
+      padding:15px;
+      border-radius:12px;
+      text-align:center;
+      font-size:20px;
+      margin-bottom:20px;
+    }
+
+    .download-btn{
+      display:block;
+      width:250px;
+      margin:30px auto;
+      padding:15px;
+      text-align:center;
+      background:#28a745;
+      color:white;
+      font-size:18px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+    }
+
+    .download-btn:hover{
+      background:#1f7e34;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>ĐỀ THI TƯƠNG TÁC<br>AI & MA TRẬN NGHỊCH ĐẢO</h1>
+
+  <div class="score-box">
+    Điểm hiện tại: <span id="score">0</span>/20
+  </div>
+
+  <h2>PHẦN I — LÝ THUYẾT (5 câu)</h2>
+
+  <div id="quiz"></div>
+
+  <button class="download-btn" onclick="downloadHTML()">
+    Tải File HTML
+  </button>
+
+</div>
+
+<script>
+
+const questions = [
+
+/* =========================
+   LÝ THUYẾT
+========================= */
+
+{
+  type:"Lý thuyết",
+  question:"Ba trụ cột sử dụng AI theo bài giảng là gì?",
+  options:[
+    "Prompt – Context – Harnessing",
+    "AI – Data – Cloud",
+    "Code – Design – Logic",
+    "Input – Output – CPU"
+  ],
+  answer:0,
+  explanation:"Prompt là câu lệnh, Context là ngữ cảnh, Harnessing là ghì cương AI đi đúng hướng.",
+  tip:"Nhớ từ khóa: hỏi gì (Prompt) – cho bối cảnh gì (Context) – kiểm soát thế nào (Harnessing)."
+},
+
+{
+  type:"Lý thuyết",
+  question:"Theo bài giảng, vai trò mới của người thầy trong thời đại AI là gì?",
+  options:[
+    "Chỉ đọc slide PowerPoint",
+    "Thay AI làm mọi thứ",
+    "Chỉ cách học và điều khiển AI",
+    "Không còn cần thiết"
+  ],
+  answer:2,
+  explanation:"AI có thể giảng nhanh, nhưng người thầy định hướng tư duy và ghì cương AI.",
+  tip:"Thầy không còn chỉ giảng bài — thầy dạy cách tư duy."
+},
+
+{
+  type:"Lý thuyết",
+  question:"“Harnessing AI” được ví như hành động nào?",
+  options:[
+    "Lái ô tô",
+    "Cưỡi ngựa và ghì cương",
+    "Đóng máy tính",
+    "Viết code"
+  ],
+  answer:1,
+  explanation:"AI được ví như con ngựa mạnh nhưng dễ mất kiểm soát nếu không có người điều khiển.",
+  tip:"Từ “Harness” trong tiếng Anh nghĩa là dây cương."
+},
+
+{
+  type:"Lý thuyết",
+  question:"Theo bài giảng, AI clone giáo viên có nghĩa là gì?",
+  options:[
+    "AI thay thế giáo viên hoàn toàn",
+    "AI có thể sao chép phong cách giảng dạy",
+    "AI tạo robot",
+    "AI chỉ đọc văn bản"
+  ],
+  answer:1,
+  explanation:"AI có thể bắt chước giọng nói, cách giảng và phong cách suy luận.",
+  tip:"Clone = nhân bản phong cách."
+},
+
+{
+  type:"Lý thuyết",
+  question:"Theo triết lý bài giảng, học sinh nên học điều gì?",
+  options:[
+    "Học thuộc lòng",
+    "Học slide",
+    "Học tư duy",
+    "Học mẹo vặt"
+  ],
+  answer:2,
+  explanation:"Bài giảng nhấn mạnh tư duy và quá trình suy luận quan trọng hơn học thuộc.",
+  tip:"Từ khóa lớn nhất của bài giảng là “tư duy”."
+},
+
+/* =========================
+   DỄ
+========================= */
+
+{
+  type:"Dễ",
+  question:"Cho ma trận \\(A=\\begin{pmatrix}2&1\\\\1&3\\end{pmatrix}\\). Tính \\(\\det(A)\\).",
+  options:["5","6","4","7"],
+  answer:0,
+  explanation:"\\(\\det(A)=2\\cdot3-1\\cdot1=6-1=5\\)",
+  tip:"Ma trận 2×2: lấy đường chéo chính trừ đường chéo phụ."
+},
+
+{
+  type:"Dễ",
+  question:"Điều kiện để ma trận có nghịch đảo là gì?",
+  options:[
+    "\\(\\det(A)=0\\)",
+    "\\(\\det(A)\\neq0\\)",
+    "Ma trận phải vuông góc",
+    "Tổng phần tử bằng 1"
+  ],
+  answer:1,
+  explanation:"Nếu định thức bằng 0 thì ma trận không khả nghịch.",
+  tip:"Nhớ: det ≠ 0."
+},
+
+{
+  type:"Dễ",
+  question:"Công thức ma trận nghịch đảo là:",
+  options:[
+    "\\(A^{-1}=A^T\\)",
+    "\\(A^{-1}=\\det(A)A\\)",
+    "\\(A^{-1}=\\frac{1}{\\det(A)}adj(A)\\)",
+    "\\(A^{-1}=A+A^T\\)"
+  ],
+  answer:2,
+  explanation:"Đây là công thức chuẩn của ma trận nghịch đảo.",
+  tip:"Có 2 phần: định thức và adjugate."
+},
+
+{
+  type:"Dễ",
+  question:"Minor \\(M_{ij}\\) là gì?",
+  options:[
+    "Ma trận nghịch đảo",
+    "Định thức ma trận con",
+    "Định thức toàn ma trận",
+    "Ma trận chuyển vị"
+  ],
+  answer:1,
+  explanation:"Minor là định thức của ma trận sau khi bỏ hàng i và cột j.",
+  tip:"Minor = ma trận con."
+},
+
+{
+  type:"Dễ",
+  question:"Cofactor được tính theo công thức nào?",
+  options:[
+    "\\(C_{ij}=M_{ij}\\)",
+    "\\(C_{ij}=(-1)^{i+j}M_{ij}\\)",
+    "\\(C_{ij}=A^{-1}\\)",
+    "\\(C_{ij}=\\det(A)\\)"
+  ],
+  answer:1,
+  explanation:"Cofactor thêm dấu \\((-1)^{i+j}\\) vào minor.",
+  tip:"Nhớ bàn cờ dấu + −."
+},
+
+/* =========================
+   TRUNG BÌNH
+========================= */
+
+{
+  type:"Trung bình",
+  question:"Cho \\(A=\\begin{pmatrix}4&2\\\\1&3\\end{pmatrix}\\). Tính \\(\\det(A)\\).",
+  options:["10","12","8","14"],
+  answer:0,
+  explanation:"\\(4\\cdot3-2\\cdot1=12-2=10\\)",
+  tip:"Làm thật nhanh bằng công thức ad−bc."
+},
+
+{
+  type:"Trung bình",
+  question:"Cho \\(A=\\begin{pmatrix}1&2\\\\3&4\\end{pmatrix}\\). Phần tử đầu tiên của \\(A^{-1}\\) là:",
+  options:[
+    "-2",
+    "2",
+    "4",
+    "-4"
+  ],
+  answer:0,
+  explanation:"\\(A^{-1}=\\frac{1}{-2}\\begin{pmatrix}4&-2\\\\-3&1\\end{pmatrix}\\Rightarrow -2\\)",
+  tip:"Nhớ đổi chỗ a,d rồi đổi dấu b,c."
+},
+
+{
+  type:"Trung bình",
+  question:"Ma trận adjugate là gì?",
+  options:[
+    "Ma trận nghịch đảo",
+    "Ma trận cofactor",
+    "Chuyển vị của ma trận cofactor",
+    "Ma trận đơn vị"
+  ],
+  answer:2,
+  explanation:"Adjugate = transpose(cofactor matrix).",
+  tip:"Adj = cofactor rồi chuyển vị."
+},
+
+{
+  type:"Trung bình",
+  question:"Nếu \\(\\det(A)=5\\), thì \\(\\frac{1}{\\det(A)}\\) bằng:",
+  options:[
+    "5",
+    "0.2",
+    "2",
+    "10"
+  ],
+  answer:1,
+  explanation:"\\(1/5=0.2\\)",
+  tip:"Đảo số nhanh."
+},
+
+{
+  type:"Trung bình",
+  question:"Cho \\(A=\\begin{pmatrix}2&0\\\\0&2\\end{pmatrix}\\). Ma trận nghịch đảo là:",
+  options:[
+    "\\(\\begin{pmatrix}2&0\\\\0&2\\end{pmatrix}\\)",
+    "\\(\\begin{pmatrix}1&0\\\\0&1\\end{pmatrix}\\)",
+    "\\(\\begin{pmatrix}0.5&0\\\\0&0.5\\end{pmatrix}\\)",
+    "\\(\\begin{pmatrix}0&2\\\\2&0\\end{pmatrix}\\)"
+  ],
+  answer:2,
+  explanation:"Mỗi phần tử đường chéo chia cho 2.",
+  tip:"Ma trận chéo rất dễ đảo."
+},
+
+/* =========================
+   KHÓ
+========================= */
+
+{
+  type:"Khó",
+  question:"Cho \\(A=\\begin{pmatrix}3&1\\\\2&1\\end{pmatrix}\\). Tính \\(A^{-1}\\).",
+  options:[
+    "\\(\\begin{pmatrix}1&-1\\\\-2&3\\end{pmatrix}\\)",
+    "\\(\\begin{pmatrix}1&1\\\\2&3\\end{pmatrix}\\)",
+    "\\(\\begin{pmatrix}3&-1\\\\-2&1\\end{pmatrix}\\)",
+    "\\(\\begin{pmatrix}0.5&0\\\\0&0.5\\end{pmatrix}\\)"
+  ],
+  answer:0,
+  explanation:"\\(\\det(A)=1\\Rightarrow A^{-1}=\\begin{pmatrix}1&-1\\\\-2&3\\end{pmatrix}\\)",
+  tip:"Nếu det=1 thì khỏi chia."
+},
+
+{
+  type:"Khó",
+  question:"Nếu \\(A\\cdot A^{-1}=I\\), thì \\(I\\) là gì?",
+  options:[
+    "Ma trận nghịch đảo",
+    "Ma trận không",
+    "Ma trận đơn vị",
+    "Ma trận chuyển vị"
+  ],
+  answer:2,
+  explanation:"I là identity matrix — ma trận đơn vị.",
+  tip:"I = Identity."
+},
+
+{
+  type:"Khó",
+  question:"Cho \\(A=\\begin{pmatrix}5&2\\\\3&1\\end{pmatrix}\\). Giá trị \\(\\det(A)\\) là:",
+  options:[
+    "-1",
+    "1",
+    "5",
+    "11"
+  ],
+  answer:0,
+  explanation:"\\(5\\cdot1-2\\cdot3=5-6=-1\\)",
+  tip:"Đường chéo chính trừ phụ."
+},
+
+{
+  type:"Khó",
+  question:"Nếu \\(\\det(A)=0\\), điều gì xảy ra?",
+  options:[
+    "A có nghịch đảo",
+    "A không có nghịch đảo",
+    "A là ma trận đơn vị",
+    "A luôn đối xứng"
+  ],
+  answer:1,
+  explanation:"Định thức bằng 0 ⇒ không khả nghịch.",
+  tip:"det=0 là “chết”."
+},
+
+{
+  type:"Khó",
+  question:"Trong bài giảng, điều quan trọng hơn học thuộc công thức là gì?",
+  options:[
+    "Viết đẹp",
+    "Nhớ máy móc",
+    "Hiểu motivation và tư duy",
+    "Làm thật nhiều slide"
+  ],
+  answer:2,
+  explanation:"Bài giảng nhấn mạnh hiểu bản chất và motivation đằng sau công thức.",
+  tip:"Hiểu “vì sao” mạnh hơn nhớ “cái gì”."
+}
+
+];
+
+let score = 0;
+let answered = 0;
+
+const quiz = document.getElementById("quiz");
+
+questions.forEach((q,index)=>{
+
+  const div = document.createElement("div");
+  div.className = "question";
+
+  div.innerHTML = `
+    <h3>Câu ${index+1} — ${q.type}</h3>
+    <p>${q.question}</p>
+  `;
+
+  q.options.forEach((opt,i)=>{
+
+    const btn = document.createElement("div");
+    btn.className = "option";
+    btn.innerHTML = opt;
+
+    btn.onclick = function(){
+
+      if(div.classList.contains("done")) return;
+
+      div.classList.add("done");
+
+      const allOptions = div.querySelectorAll(".option");
+
+      allOptions.forEach((o,idx)=>{
+
+        if(idx===q.answer){
+          o.classList.add("correct");
+        }
+
+      });
+
+      if(i===q.answer){
+        btn.classList.add("correct");
+        score++;
+      }else{
+        btn.classList.add("wrong");
+      }
+
+      answered++;
+
+      document.getElementById("score").innerText = score;
+
+      explanation.style.display = "block";
+
+      MathJax.typesetPromise();
+    };
+
+    div.appendChild(btn);
+
+  });
+
+  const explanation = document.createElement("div");
+  explanation.className = "explanation";
+
+  explanation.innerHTML = `
+    <b>Đáp án đúng:</b> ${q.options[q.answer]}<br><br>
+    <b>Giải thích:</b> ${q.explanation}
+
+    <div class="tip">
+      <b>Mẹo làm nhanh:</b> ${q.tip}
+    </div>
+  `;
+
+  div.appendChild(explanation);
+
+  quiz.appendChild(div);
+
+});
+
+function downloadHTML(){
+
+  const content = document.documentElement.outerHTML;
+
+  const blob = new Blob([content], {type:"text/html"});
+
+  const a = document.createElement("a");
+
+  a.href = URL.createObjectURL(blob);
+
+  a.download = "de-thi-ai-ma-tran-nghich-dao.html";
+
+  a.click();
+}
+
+</script>
+
+</body>
+</html>
